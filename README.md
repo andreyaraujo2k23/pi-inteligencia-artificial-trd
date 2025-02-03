@@ -109,3 +109,24 @@ Estudem as aplicações do modelo para que possam tirar suas dúvidas a partir d
 Bom final de férias e até lá,
 Prof. Marco.
 
+
+# PROJETO
+
+- IA DE TRADUÇÃO DE PAGINA
+- INTEGRADO COM A IA DEEPL
+
+# INSTRUÇÕES:
+
+1 - entrar no site: https://www.deepl.com/pt-BR/pro#developer
+2 - clicar em DeepL API Free "Assine Gratis"
+3 - Cadastrar-se > ir até sua conta > chave api > copiar chave
+4 - colar chave api em LINHA 221 ARQUIVO "SERVER.JS" = "SUA-CHAVE-API-AQUI"
+5 - rodar os servidores webserver e serve.js
+6 - na nav-bar tera uma lista suspensa para escolha do idioma
+
+
+
+observações: 
+- Não consegui rodar docker pois minha maquina esquentou demais por ser uma maquina muito fraca, por isso executei localmente
+- Talvez tenha um pequeno delay ao traduzir as palavras
+

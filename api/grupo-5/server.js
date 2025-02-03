@@ -218,7 +218,7 @@ app.post("/traduzir", async (req, res) => {
             },
             {
                 headers: {
-                    'Authorization': `DeepL-Auth-Key CHAVE_API_AQUI`, // Sua chave de API
+                    'Authorization': `DeepL-Auth-Key SUA-CHAVE-API-AQUI`, // Sua chave de API
                     'Content-Type': 'application/json'
                 }
             }
