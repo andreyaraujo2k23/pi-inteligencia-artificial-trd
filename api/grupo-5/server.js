@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 const app = express()
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
+const axios = require('axios'); 
 
 const uniqueValidator = require('mongoose-unique-validator')
 
@@ -204,6 +205,44 @@ app.post("/login", async (req, res) => {
 async function conectarAoMongo() {
     await mongoose.connect(uri, {});
 }
+
+app.post("/traduzir", async (req, res) => {
+    const { texto, idiomaAlvo } = req.body;
+
+    try {
+        const response = await axios.post(
+            'https://api-free.deepl.com/v2/translate',
+            {
+                text: [texto], // Envia o texto como um array
+                target_lang: idiomaAlvo
+            },
+            {
+                headers: {
+                    'Authorization': `DeepL-Auth-Key CHAVE_API_AQUI`, // Sua chave de API
+                    'Content-Type': 'application/json'
+                }
+            }
+        );
+
+        // Retorna a tradução
+        res.json({ traduzido: response.data.translations[0].text });
+    } catch (error) {
+        console.error("Erro ao traduzir texto:", error);
+        res.status(500).json({ mensagem: "Erro ao traduzir texto" });
+    }
+});
+
+// Endpoint para listar eventos
+app.get("/evento", async (req, res) => {
+    try {
+        const eventos = await Evento.find();
+        res.json(eventos);
+    } catch (error) {
+        console.error("Erro ao buscar eventos:", error);
+        res.status(500).json({ mensagem: "Erro ao buscar eventos" });
+    }
+});
+
 
 app.listen(port, () => {
     try {

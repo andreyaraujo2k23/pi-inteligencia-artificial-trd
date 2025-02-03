@@ -151,19 +151,27 @@ body {
   </style>
   
 </head>
-<body>
+<body> 
   <!--Menu de Navegação-->
   <nav class="navbar navbar-expand-lg custom-navbar">
     <div class="container-fluid">
         <!-- Logo -->
         <a class="navbar-brand d-flex align-items-center" href="#">
             <img src="./img/logo-05.png" alt="Logo" class="logo me-2">
-            <span class="text-white">EVENT MINGLE</span>
+            <span class="text-white" data-translate>EVENT MINGLE</span>
         </a>
         <!-- Botão de Toggle para o menu em dispositivos menores -->
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
+
+        <select id="languageSelect" onchange="translatePage()">
+          <option value="pt" selected>Português</option>
+          <option value="en">Inglês</option>
+          <option value="es">Espanhol</option>
+          <option value="fr">Francês</option>
+          <option value="de">Alemão</option>
+        </select>
 
         <!-- Conteúdo da Barra de Navegação -->
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -172,126 +180,142 @@ body {
                 <button class="btn btn-search" type="submit"><i class="bi bi-search"></i></button>
             </form>
             <div class="d-flex">
-              <a id="entrar" href="login-05.html" class="btn btn-outline-light"><i class="bi bi-person"></i> Entrar</a>
-              <a id="criarEvento" href="cadastro_evento.html" class="btn btn-outline-light d-none"><i class="bi bi-plus-circle"></i> Criar Evento</a>
+              <a id="entrar" href="login-05.html" class="btn btn-outline-light"><i class="bi bi-person"></i> <span data-translate>Entrar</span></a>
+              <a id="criarEvento" href="cadastro_evento.html" class="btn btn-outline-light d-none"><i class="bi bi-plus-circle"></i> <span data-translate>Criar Evento</span></a>
             </div>
         </div>
     </div>
-</nav>
-<!--Fim do menu-->
-<!-- Modal para exibir os detalhes do evento -->
+  </nav>
+  <!--Fim do menu-->
 
-<!-- Seção de Eventos Recomendados -->
-<section class="my-4 event-section">
-  <div class="container mt-4">
-    <h3 class="text-center">Eventos Recomendados</h3>
-    <div class="row" id="eventosContainer"></div>
+  <!-- Seção de Eventos Recomendados -->
+  <section class="my-4 event-section">
+    <div class="container mt-4">
+      <h3 class="text-center" data-translate>Eventos Recomendados</h3>
+      <div class="row" id="eventosContainer"></div>
+    </div>
+  </section>
+
+  <!-- Modal para exibir os detalhes do evento -->
+  <div id="eventoModal" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 20px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+    <h3 id="modalTitulo" data-translate>Título do Evento</h3>
+    <img id="modalImagem" src="" alt="Imagem do Evento" style="width: 100%; height: auto; margin-bottom: 10px;">
+    <p id="modalDescricao" data-translate>Descrição do Evento</p>
+    <button id="modalVerMais" class="btn btn-primary" data-translate>Ver Mais</button>
+    <button class="btn btn-secondary" onclick="fecharModal()" data-translate>Fechar</button>
   </div>
-</section>
 
-<div id="eventoModal" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 20px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
-  <h3 id="modalTitulo">Título do Evento</h3>
-  <img id="modalImagem" src="" alt="Imagem do Evento" style="width: 100%; height: auto; margin-bottom: 10px;">
-  <p id="modalDescricao">Descrição do Evento</p>
-  <button id="modalVerMais" class="btn btn-primary">Ver Mais</button>
-  <button class="btn btn-secondary" onclick="fecharModal()">Fechar</button>
-</div>
-
-<!-- Seção de Categorias -->
-<section class="my-4 categories-section">
-  <div class="container">
-    <h3 class="text-center">Categorias</h3>
-    <div class="row g-3">
-      <!-- Categoria 1 -->
-      <div class="col-6 col-md-4">
-        <div class="card">
-          <img src="./img/festa-05.png" class="card-img-top" alt="Festas">
-          <h5>Festas</h5>
+  <!-- Seção de Categorias -->
+  <section class="my-4 categories-section">
+    <div class="container">
+      <h3 class="text-center" data-translate>Categorias</h3>
+      <div class="row g-3">
+        <!-- Categoria 1 -->
+        <div class="col-6 col-md-4">
+          <div class="card">
+            <img src="./img/festa-05.png" class="card-img-top" alt="Festas">
+            <h5 data-translate>Festas</h5>
+          </div>
         </div>
-      </div>
-      <!-- Categoria 2 -->
-      <div class="col-6 col-md-4">
-        <div class="card">
-          <img src="./img/arte-05.png" class="card-img-top" alt="Exposições Artísticas">
-          <h5>Exposições Artísticas</h5>
+        <!-- Categoria 2 -->
+        <div class="col-6 col-md-4">
+          <div class="card">
+            <img src="./img/arte-05.png" class="card-img-top" alt="Exposições Artísticas">
+            <h5 data-translate>Exposições Artísticas</h5>
+          </div>
         </div>
-      </div>
-      <!-- Categoria 3 -->
-      <div class="col-6 col-md-4">
-        <div class="card">
-          <img src="./img/pets-05.png" class="card-img-top" alt="Pets">
-          <h5>Pets</h5>
+        <!-- Categoria 3 -->
+        <div class="col-6 col-md-4">
+          <div class="card">
+            <img src="./img/pets-05.png" class="card-img-top" alt="Pets">
+            <h5 data-translate>Pets</h5>
+          </div>
         </div>
-      </div>
-      <!-- Categoria 4 -->
-      <div class="col-6 col-md-4">
-        <div class="card">
-          <img src="./img/esporte-05.png" class="card-img-top" alt="Esportes">
-          <h5>Esportes</h5>
+        <!-- Categoria 4 -->
+        <div class="col-6 col-md-4">
+          <div class="card">
+            <img src="./img/esporte-05.png" class="card-img-top" alt="Esportes">
+            <h5 data-translate>Esportes</h5>
+          </div>
         </div>
-      </div>
-      <!-- Categoria 5 -->
-      <div class="col-6 col-md-4">
-        <div class="card">
-          <img src="./img/bazar-05.png" class="card-img-top" alt="Bazar">
-          <h5>Bazar</h5>
+        <!-- Categoria 5 -->
+        <div class="col-6 col-md-4">
+          <div class="card">
+            <img src="./img/bazar-05.png" class="card-img-top" alt="Bazar">
+            <h5 data-translate>Bazar</h5>
+          </div>
         </div>
-      </div>
-      <!-- Categoria 6 -->
-      <div class="col-6 col-md-4">
-        <div class="card">
-          <img src="./img/jogo-05.png" class="card-img-top" alt="Jogos">
-          <h5>Jogos</h5>
+        <!-- Categoria 6 -->
+        <div class="col-6 col-md-4">
+          <div class="card">
+            <img src="./img/jogo-05.png" class="card-img-top" alt="Jogos">
+            <h5 data-translate>Jogos</h5>
+          </div>
         </div>
       </div>
     </div>
+  </section>
+  <!--Fim conteudo-->
 
-    <!-- Botão de Outros Eventos -->
-   
-  </div>
-</section>
-<!--Fim conteudo-->
+  <!--Rodapé-->
+  <footer class="bg-custom pt-4">
+    <div class="container">
+      <div class="row">
+        <!-- Seção Legal -->
+        <div class="col-md-6">
+          <h5 class="fw-bold" data-translate>LEGAL</h5>
+          <ul class="list-unstyled">
+            <li><a href="#" data-translate>Sobre nós</a></li>
+            <li><a href="#" data-translate>Como funciona</a></li>
+            <li><a href="#" data-translate>Promova seu evento</a></li>
+            <li><a href="#" data-translate>Ajuda</a></li>
+          </ul>
+        </div>
 
-<!--Rodapé-->
-<footer class="bg-custom pt-4">
-  <div class="container">
-    <div class="row">
-      <!-- Seção Legal -->
-      <div class="col-md-6">
-        <h5 class="fw-bold">LEGAL</h5>
-        <ul class="list-unstyled">
-          <li><a href="#">Sobre nós</a></li>
-          <li><a href="#">Como funciona</a></li>
-          <li><a href="#">Promova seu evento</a></li>
-          <li><a href="#">Ajuda</a></li>
-        </ul>
-      </div>
+        <!-- Seção Legal parte 2 -->
+        <div class="col-md-3">
+          <ul class="list-unstyled">
+            <li><a href="#" data-translate>Dúvidas frequentes</a></li>
+            <li><a href="#" data-translate>Termos e políticas</a></li>
+            <li><a href="#" data-translate>Política de cookies</a></li>
+          </ul>
+        </div>
 
-      <!-- Seção Legal parte 2 -->
-      <div class="col-md-3">
-        <ul class="list-unstyled">
-          <li><a href="#">Dúvidas frequentes</a></li>
-          <li><a href="#">Termos e políticas</a></li>
-          <li><a href="#">Política de cookies</a></li>
-        </ul>
-      </div>
-
-      <!-- Redes Sociais -->
-      <div class="col-md-3 text-md-end">
-        <h5 class="fw-bold">REDES SOCIAIS</h5>
-        <ul class="list-unstyled">
-          <li><a href="#"><i class="bi bi-facebook"></i> Facebook</a></li>
-          <li><a href="https://instagram.com"><i class="bi bi-instagram"></i> Instagram</a></li>
-        </ul>
+        <!-- Redes Sociais -->
+        <div class="col-md-3 text-md-end">
+          <ul class="list-unstyled">
+            <li><a href="#"><i class="bi bi-facebook"></i> <span data-translate>Facebook</span></a></li>
+            <li><a href="https://instagram.com"><i class="bi bi-instagram"></i> <span data-translate>Instagram</span></a></li>
+          </ul>
+        </div>
       </div>
     </div>
-  </div>
-</footer>
-<!--Fim do rodapé-->
+  </footer>
+  <!--Fim do rodapé-->
 
   <script src="https://kit.fontawesome.com/a076d05399.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-  <script src="js/index.js"></script>
+  <script>
+    async function translatePage() {
+      const idiomaAlvo = document.getElementById('languageSelect').value;
+      const elementos = document.querySelectorAll('[data-translate]');
+
+      for (const elemento of elementos) {
+        const textoOriginal = elemento.textContent;
+
+        try {
+          const response = await axios.post('http://localhost:3005/traduzir', {
+            texto: textoOriginal,
+            idiomaAlvo: idiomaAlvo
+          });
+
+          elemento.textContent = response.data.traduzido;
+        } catch (error) {
+          console.error("Erro ao traduzir:", error);
+        }
+      }
+    }
+  </script>
 </body>
 </html>
